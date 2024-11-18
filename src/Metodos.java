@@ -2,6 +2,10 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Metodos {
+    public static void main(String[] args) {
+        Metodos metodos = new Metodos();
+        metodos.menu();
+    }
 
     int[] arr10, arr100, arr1000, arr5000, arr10000, arr30000;
 
@@ -32,10 +36,8 @@ public class Metodos {
     }
 
     public void generarArreglos() {
-        
         int[] arr = new int[30000];
         Random rd = new Random();
-            
         for (int i = 0; i < arr.length; i++) {
             // Generacion de valores de 0 a 29999
             arr[i] = rd.nextInt(30000);
@@ -245,7 +247,7 @@ public class Metodos {
         if (arr[mid] == valorB)
             return mid;
         if (arr[mid] > valorB)
-            return BinarySearchRecursive(arr, valorB, left, right);
+            return BinarySearchRecursive(arr, valorB, left, mid - 1);
         return BinarySearchRecursive(arr, valorB, mid + 1, right);
     }
 }
