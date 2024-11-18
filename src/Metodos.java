@@ -2,10 +2,6 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Metodos {
-    public static void main(String[] args) {
-        Metodos metodos = new Metodos();
-        metodos.menu();
-    }
 
     int[] arr10, arr100, arr1000, arr5000, arr10000, arr30000;
 
@@ -36,25 +32,26 @@ public class Metodos {
     }
 
     public void generarArreglos() {
+        
         int[] arr = new int[30000];
         Random rd = new Random();
+            
         for (int i = 0; i < arr.length; i++) {
-            //Generacion de valores de 0 a 29999
-            arr[i] = rd.nextInt(30000); 
+            // Generacion de valores de 0 a 29999
+            arr[i] = rd.nextInt(30000);
 
         }
-    
-    
+
         arr10 = java.util.Arrays.copyOf(arr, 10);
         arr100 = java.util.Arrays.copyOf(arr, 100);
         arr1000 = java.util.Arrays.copyOf(arr, 1000);
         arr5000 = java.util.Arrays.copyOf(arr, 5000);
         arr10000 = java.util.Arrays.copyOf(arr, 10000);
         arr30000 = java.util.Arrays.copyOf(arr, 30000);
-    
+
         System.out.println("Arreglos generados con éxito:");
-    
-        //Imprime los primeros elementos de los arreglos
+
+        // Imprime los primeros elementos de los arreglos
         System.out.print("Arreglo Generado de 10 Valores: ");
         printArray(arr10, 10);
         System.out.print("Arreglo Generado de 100 Valores: ");
@@ -68,7 +65,7 @@ public class Metodos {
         System.out.print("Arreglo Generado de 30000 Valores: ");
         printArray(arr30000, 30000);
     }
-    
+
     // Método para imprimir un número limitado de elementos del arreglo
     public void printArray(int[] array, int limit) {
         for (int i = 0; i < limit && i < array.length; i++) {
@@ -76,7 +73,8 @@ public class Metodos {
         }
         System.out.println();
     }
-    //Metodo que ordena los arreglos
+
+    // Metodo que ordena los arreglos
     public void ordenarArreglos() {
         if (arr10 == null) {
             System.out.println("Debe generar los arreglos primero (opción 1).");
@@ -98,7 +96,6 @@ public class Metodos {
         medirTiempoOrdenamiento("Insercion", arr10, arr100, arr1000, arr5000, arr10000, arr30000);
     }
 
-
     public void medirTiempoOrdenamiento(String metodo, int[]... arreglos) {
         for (int[] arr : arreglos) {
             int[] copia = arr.clone();
@@ -110,15 +107,15 @@ public class Metodos {
             }
             long endTime = System.nanoTime();
             double tiempoSegundos = (endTime - startTime) / 1_000_000_000.0;
-    
+
             // Formatear el tiempo para evitar notación científica
             String tiempoFormateado = String.format("%.6f", tiempoSegundos);
-    
+
             System.out.println("Con " + copia.length + " valores el tiempo es de " + tiempoFormateado + " seg.");
         }
     }
-    
-    // Metodo que realizara las busqueda 
+
+    // Metodo que realizara las busqueda
     public void Busquedas() {
         if (arr10 == null) {
             System.out.println("Debe generar y ordenar los arreglos primero (opción 1 y luego opción 2).");
@@ -132,51 +129,55 @@ public class Metodos {
         realizarBusqueda(arr10000, 9876);
         realizarBusqueda(arr30000, 29475);
     }
+
     // Metodo que busca los valores especificados
     public void realizarBusqueda(int[] arr, int posicion) {
         if (arr == null || posicion >= arr.length) {
-            System.out.println("La posición " + posicion + " excede el tamaño del arreglo o el arreglo no está inicializado.");
+            System.out.println(
+                    "La posición " + posicion + " excede el tamaño del arreglo o el arreglo no está inicializado.");
             return;
         }
-    
+
         // Capturamos el valor que corresponde a la posición en el arreglo original
         int target = arr[posicion];
-        System.out.println("\nBuscando el valor en posición " + posicion + " (valor: " + target + ") en el arreglo de tamaño " + arr.length + ":");
-    
+        System.out.println("\nBuscando el valor en posición " + posicion + " (valor: " + target
+                + ") en el arreglo de tamaño " + arr.length + ":");
+
         // Ordenar el arreglo antes de la búsqueda binaria
         ordenarInsercion(arr); // Usa cualquier método de ordenamiento
         System.out.println("Arreglo ordenado para la búsqueda binaria.");
-    
+
         // Medir tiempo para la Búsqueda binaria normal
         long startNormal = System.nanoTime();
         int resultadoNormal = BinarySearch(arr, target);
         long endNormal = System.nanoTime();
         double tiempoNormal = (endNormal - startNormal) / 1_000_000_000.0;
-    
+
         if (resultadoNormal >= 0) {
-            System.out.println("Resultado Búsqueda Normal: Encontrado en índice " + resultadoNormal + " (valor: " + arr[resultadoNormal] + ")");
+            System.out.println("Resultado Búsqueda Normal: Encontrado en índice " + resultadoNormal + " (valor: "
+                    + arr[resultadoNormal] + ")");
         } else {
             System.out.println("Resultado Búsqueda Normal: No encontrado");
         }
         System.out.println("Tiempo de ejecución Búsqueda Normal: " + String.format("%.6f", tiempoNormal) + " seg.");
-    
+
         // Medir tiempo para la Búsqueda binaria recursiva
         long startRecursiva = System.nanoTime();
         int resultadoRecursiva = BinarySearchRecursive(arr, target, 0, arr.length - 1);
         long endRecursiva = System.nanoTime();
         double tiempoRecursiva = (endRecursiva - startRecursiva) / 1_000_000_000.0;
-    
+
         if (resultadoRecursiva >= 0) {
-            System.out.println("Resultado Búsqueda Recursiva: Encontrado en índice " + resultadoRecursiva + " (valor: " + arr[resultadoRecursiva] + ")");
+            System.out.println("Resultado Búsqueda Recursiva: Encontrado en índice " + resultadoRecursiva + " (valor: "
+                    + arr[resultadoRecursiva] + ")");
         } else {
             System.out.println("Resultado Búsqueda Recursiva: No encontrado");
         }
-        System.out.println("Tiempo de ejecución Búsqueda Recursiva: " + String.format("%.6f", tiempoRecursiva) + " seg.");
+        System.out
+                .println("Tiempo de ejecución Búsqueda Recursiva: " + String.format("%.6f", tiempoRecursiva) + " seg.");
     }
-    
-    
-    
-    //Metodo de Ordenamiento Burbuja
+
+    // Metodo de Ordenamiento Burbuja
     public void ordenarBurbuja(int[] arr) {
         for (int i = 0; i < arr.length - 1; i++) {
             for (int j = 0; j < arr.length - i - 1; j++) {
@@ -188,7 +189,8 @@ public class Metodos {
             }
         }
     }
-    //Metodo de Ordenamiento Seleccion 
+
+    // Metodo de Ordenamiento Seleccion
     public void ordenarSeleccion(int[] arr) {
         for (int i = 0; i < arr.length - 1; i++) {
             int min = i;
@@ -202,7 +204,8 @@ public class Metodos {
             arr[i] = temp;
         }
     }
-    //Metodo de Ordenamiento Insercion 
+
+    // Metodo de Ordenamiento Insercion
     public void ordenarInsercion(int[] arr) {
         for (int i = 1; i < arr.length; i++) {
             int key = arr[i];
@@ -214,7 +217,8 @@ public class Metodos {
             arr[j + 1] = key;
         }
     }
-    //Metodo de Busqueda Binaria Normal
+
+    // Metodo de Busqueda Binaria Normal
     public int BinarySearch(int[] arr, int valorB) {
         int left = 0;
         int right = arr.length - 1;
@@ -232,13 +236,16 @@ public class Metodos {
         }
         return -1;
     }
-    //Metodo de Busqueda Binaria Recursiva 
+
+    // Metodo de Busqueda Binaria Recursiva
     public int BinarySearchRecursive(int[] arr, int valorB, int left, int right) {
-        if (left > right) return -1;
+        if (left > right)
+            return -1;
         int mid = left + (right - left) / 2;
-        if (arr[mid] == valorB) return mid;
-        if (arr[mid] > valorB) return BinarySearchRecursive(arr, valorB, left, mid - 1);
+        if (arr[mid] == valorB)
+            return mid;
+        if (arr[mid] > valorB)
+            return BinarySearchRecursive(arr, valorB, left, right);
         return BinarySearchRecursive(arr, valorB, mid + 1, right);
     }
 }
-
